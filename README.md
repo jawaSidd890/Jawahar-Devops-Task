@@ -1,6 +1,3 @@
-build Docker image called node-app. Execute from root
-docker build -t travel-app .
-docker ps -a
 Create a Project Directory:
 mkdir travel-app
 cd travel-app
@@ -27,4 +24,4 @@ docker ps -a
 Run the Docker Container:
 Start a container from the image and map port 3000 in the container to port 49160
 docker run -p 49160:3000 travel-app
-
+ 
