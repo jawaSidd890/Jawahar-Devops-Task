@@ -1,0 +1,31 @@
+In VS Code, create a folder for your project (e.g., k8s-manifests).
+
+Inside it, create a file → nginx-sidecar-deployment.yaml.
+
+Paste your YAML (like the Deployment I shared). Example:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-sidecar-deployment
+  labels:
+    app: nginx-sidecar
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-sidecar
+  template:
+    metadata:
+      labels:
+        app: nginx-sidecar
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+      - name: sidecar-container
+        image: busybox:latest
+        command: ['sh', '-c', 'echo "Sidecar container running" && sleep 3600']
+
