@@ -1,0 +1,27 @@
+side car deployment file
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-sidecar-deployment
+  labels:
+    app: nginx-sidecar
+spec:
+  replicas: 2   # number of pod replicas
+  selector:
+    matchLabels:
+      app: nginx-sidecar
+  template:
+    metadata:
+      labels:
+        app: nginx-sidecar
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+      - name: sidecar
+        image: alpine:3.18
+        command: ["sh", "-c", "while true; do echo Sidecar running...; sleep 10; done"]
