@@ -1,6 +1,10 @@
 In VS Code, create a folder for your project (e.g., k8s-manifests).
 
-Inside it, create a file → nginx-sidecar-deployment.yaml.
+Inside it, create a file → nginx-sidecar-pod.yaml.
+
+ kubectl apply -f nginx-sidecar-pod.yaml
+
+ kubectl get pods
 
 Paste your YAML (like the Deployment I shared). Example:
 
