@@ -1,0 +1,57 @@
+#!/bin/bash
+
+echo "========== K8s Daily Health Checklist =========="
+
+  nano k8s-daily-checklist.sh
+chmod +x k8s-daily-checklist.sh
+./k8s-daily-checklist.sh
+
+
+# 1. Cluster Info
+echo -e "\n👉 Cluster Info:"
+kubectl cluster-info
+kubectl version --short
+
+# 2. Node Health
+echo -e "\n👉 Node Status:"
+kubectl get nodes -o wide
+kubectl top nodes 2>/dev/null || echo "⚠️ Metrics not available"
+
+# 3. Namespace Overview
+echo -e "\n👉 Namespaces:"
+kubectl get namespaces
+
+# 4. Pod Status (All Namespaces)
+echo -e "\n👉 Pods (All Namespaces):"
+kubectl get pods --all-namespaces -o wide
+
+# 5. Deployments & Rollouts
+echo -e "\n👉 Deployments & Rollout Status:"
+for ns in $(kubectl get ns --no-headers | awk '{print $1}'); do
+  echo "Namespace: $ns"
+  kubectl get deployments -n $ns
+done
+
+# 6. Services & Endpoints
+echo -e "\n👉 Services & Endpoints:"
+kubectl get svc --all-namespaces
+kubectl get endpoints --all-namespaces
+
+# 7. Ingress
+echo -e "\n👉 Ingress Resources:"
+kubectl get ingress --all-namespaces
+
+# 8. Resource Usage
+echo -e "\n👉 Pod Resource Usage (top 10 by CPU):"
+kubectl top pods --all-namespaces --sort-by=cpu | head -n 11 2>/dev/null || echo "⚠️ Metrics not available"
+
+# 9. Events (last 1 hour)
+echo -e "\n👉 Recent Events (last 1 hour):"
+kubectl get events --all-namespaces --sort-by=.metadata.creationTimestamp | tail -n 20
+
+# 10. Persistent Volumes / Claims
+echo -e "\n👉 Persistent Volumes & Claims:"
+kubectl get pv
+kubectl get pvc --all-namespaces
+
+echo -e "\n✅ Daily K8s Health Check Complete!"
