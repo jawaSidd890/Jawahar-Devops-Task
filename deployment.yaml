@@ -1,0 +1,33 @@
+A Deployment in Kubernetes is a higher-level abstraction that helps you manage and control Pods (the smallest unit in Kubernetes). Instead of manually creating and updating Pods, you use a Deployment to define how many replicas of your application should run, and Kubernetes ensures that the desired state matches the actual state.
+
+🔹 Key Features of a Deployment
+
+Declarative Updates – You describe the desired state in a YAML/JSON file, and Kubernetes makes it happen.
+
+Replica Management – Ensures the specified number of Pods are running.
+
+Rolling Updates – Updates Pods gradually without downtime.
+
+Rollback – You can revert to a previous version if something goes wrong.
+
+Self-Healing – If a Pod crashes, the Deployment automatically replaces it.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80
