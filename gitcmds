@@ -1,0 +1,22 @@
+cd simplybyte-springboot
+du -h --max-depth=1
+
+
+AWAHAR@DESKTOP-QTTCBF9 MINGW64 ~
+$ cd simplybyte-springboot
+
+JAWAHAR@DESKTOP-QTTCBF9 MINGW64 ~/simplybyte-springboot (main)
+$ du -h --max-depth=1
+119K    ./.git
+4.0K    ./.github
+7.0K    ./src
+163K    .
+
+JAWAHAR@DESKTOP-QTTCBF9 MINGW64 ~/simplybyte-springboot (main)
+$ du -sh *
+1.0K    Dockerfile
+4.0K    JenkinsFile
+12K     mvnw
+8.0K    mvnw.cmd
+4.0K    pom.xml
+7.0K    src
